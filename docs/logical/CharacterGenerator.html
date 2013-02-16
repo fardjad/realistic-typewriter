@@ -1,0 +1,309 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <title>realistic-typewriter.js</title>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">        
+        <script>
+
+			(function()
+			{
+			    var loc = window.location.protocol + '//' + window.location.hostname + window.location.pathname;
+                loc = loc.split('\\');
+                loc = loc.join('/');					    
+			    loc = loc.split('/');
+			    loc.pop();
+			    loc = loc.join('/');
+			    loc += '/' + '../';
+			
+			    document.write("<base href='" + loc + "'></base>");
+			})();
+         
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="jgdoc.css">
+        <link rel="stylesheet" type="text/css" href="theme.css">
+        	    <script type="text/javascript" src="navTree.js"></script>
+	    <script type="text/javascript" src="jgdoc.js"></script>
+	</head>
+    <body>
+        <div class="startup" id="startup">
+            <div class="banner" id="banner">
+                <h1 class="projectName">
+	               <a href="./index.html">realistic-typewriter.js</a>   
+                </h1>
+                <div class="bar">
+	                 version 0.1
+	            </div>
+	         </div>
+             <div class="content" id="docContent">
+                  <div class="block">
+                        <div id="searchBlock">
+			                <div class="search" >
+			                    <div class="searchLabel">Search:</div>
+			                    <div class="searchBlock" style="height:100%">
+					                <input id="jgsSearchString" type="text" size="60" class="jgdSearchString"/>
+					                <div id="jgsSearchPanel" class="jgsSearchPanel" style="display:none">
+						                <div  class="jgdSearchRect" >
+						                    <div id="jgsSearchResults">
+						                        Loading....
+						                    </div>
+						                </div>
+					                   <div id="jgsInfo" class="jgsInfo" >No selection</div>
+                                    </div>
+                                 </div>
+			                </div>
+		                </div>
+		                <div id="docScroll" class="docScroll">
+		                    <div>
+			                    <hr/>
+						        <div>
+						        						        		<H2>
+        <span class="objType">Class</span> CharacterGenerator
+    </H2>
+    
+
+    <hr/>
+    <!-- description -->
+    <div>
+       <code>
+            <span class="modifiers">private</span>
+            <span class="objType">class</span> 
+            <b>CharacterGenerator</b>
+       </code>
+    </div>
+                <div class="comment">
+ </div>
+                                            <span class="definedIn">Defined in </span>
+        <a href="physical/file-realistic-typewriter.js.html">realistic-typewriter.js</a>
+        <hr/> 
+    <p />
+    
+            	
+                                
+                    
+    
+                    
+            
+                <div class="summaryTable function">
+            <div class="summaryTableHeader">
+                <span class="objType">Function</span> Summary
+            </div>
+                    <div class="summaryItem">
+                                                           <div class="summaryItemDef">
+                <span class="modifiers">private</span>
+                <span class="type">String</span>
+                <a href="logical/CharacterGenerator.html#___nextChar"><span class="elementName">nextChar</span></a>()
+            </div>
+        <div class="summaryItemDesc">
+        
+ Returns the next character.    </div>  
+                            </div>
+                    <div class="summaryItem">
+                                                                    <div class="summaryItemDef">
+                <span class="modifiers">public</span>
+                <span class="type">void</span>
+                <a href="logical/CharacterGenerator.html#___type"><span class="elementName">type</span></a>
+                (<span class="type">String</span>
+ text, <span class="type">HTMLElement</span>
+ htmlElement, [<span class="type"><a href="logical/CharacterGenerator.html#___callback">callback</a></span>
+ callback])
+            </div>          
+                <div class="summaryItemDesc">
+        
+ Starts typing the given text in specified HTML element.    </div>  
+                            </div>
+                </div>
+        <p/>
+                
+                        <div class="summaryTable ifunction">
+            <div class="summaryTableHeader">
+                <span class="objType">Function Interface</span> Summary
+            </div>
+                    <div class="summaryItem">
+                                                           <div class="summaryItemDef">
+                <span class="modifiers"></span>
+                <span class="type"></span>
+                <a href="logical/CharacterGenerator.html#___callback"><span class="elementName">callback</span></a>()
+            </div>
+        <div class="summaryItemDesc">
+        
+     </div>  
+                            </div>
+                </div>
+        <p/>
+        <!-- ============== Details coming here =================== -->
+    	    	    	    	            <div class="details function">
+            <h2 class="sectionHeader">Function Details</h2>
+                                                                    <h3>
+        <a name="___nextChar">
+            <span class="objType">function</span>
+            <span class="objName">nextChar</span>            
+        </a> 
+    </h3>
+                <div>
+                <code>
+                    <span class="modifiers">private</span>
+                    <span class="type">String</span>
+                    nextChar()
+                </code>
+            </div>    
+        <div class="comment">
+        
+ Returns the next character.
+     </div>
+            	<div class="returns">
+	        <span class="descSection">Returns:</span><br/>
+	        <div class="paddedDetails">
+	            	             Can be one of the following:
+ 	            	                <ul class="paramoption">
+	                    	                            <li>
+        <code>
+                        <span class="modifiers"></span>
+            <span class="type">String</span>
+            character
+                    </code> 
+         - a normal character    </li>
+	                    	                            <li>
+        <code>
+                        <span class="modifiers"></span>
+            <span class="type">String</span>
+            character
+                    </code> 
+         - '\b'    </li>
+	                    	                </ul>
+	            	        </div>
+        </div>      
+                                                <hr/>       
+                                                                                    <h3>
+        <a name="___type">
+            <span class="objType">function</span>
+            <span class="objName">type</span>            
+        </a> 
+    </h3>
+                        <div>
+                <code>
+                    <span class="modifiers">public</span>
+                    <span class="type">void</span>
+                    type(<span class="type">String</span>
+ text, <span class="type">HTMLElement</span>
+ htmlElement, [<span class="type"><a href="logical/CharacterGenerator.html#___callback">callback</a></span>
+ callback])
+                </code> 
+            </div>          
+                <div class="comment">
+        
+ Starts typing the given text in specified HTML element.
+     </div>
+        	<div class="parameters">
+        <span class="descSection">Parameters:</span><br/>
+                            <div>
+                    <div class="paramset"></div>
+                    <div>
+                                                <div class="param paddedDetails">
+        <code>
+            text        </code>
+                    </div>   
+                                                <div class="param paddedDetails">
+        <code>
+            htmlElement        </code>
+                    </div>   
+                                                <div class="param paddedDetails">
+        <code>
+            [callback]        </code>
+         - Function to be called when typing finished.            </div>   
+                                        </div>
+                </div>
+                    </div>
+                                                    <hr/>       
+                                    </div>
+    	    	            <div class="details ifunction">
+            <h2 class="sectionHeader">Function Interface Details</h2>
+                                                                    <h3>
+        <a name="___callback">
+            <span class="objType">ifunction</span>
+            <span class="objName">callback</span>            
+        </a> 
+    </h3>
+                <div>
+                <code>
+                    <span class="modifiers"></span>
+                    <span class="type"></span>
+                    callback()
+                </code>
+            </div>    
+        <div class="comment">
+        
+     </div>
+                                                    <hr/>       
+                                    </div>
+                                    						        </div>
+        		          </div>			                    
+		                </div>
+        	       </div>
+             </div>
+             <div class="navigation" id="navigation">
+    <ul class="navContent">
+        <li>
+            <div class="navTree">
+                <h2 onclick="jgdoc.NavPanel.clicked(event)">
+                    <a href="javascript:jgdoc.NavPanel.dummy()">Navigation</a>
+                </h2>
+                <ul class="navContent2">
+                    <li>
+                        <div>
+                            <a class="openAll" href="javascript:jgdoc.NavTree.onOpenAll()">Open All</a>
+                            <a class="closeAll" href="javascript:jgdoc.NavTree.onCloseAll()">Close All</a>
+                        </div>
+                        <div>
+                            <ul id = "content" class="contents">
+                                Loading...
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+    <ul class="navContent closed">
+        <li>
+            <div class="fileTree">
+                <h2 onclick="jgdoc.NavPanel.clicked(event)">
+                    <a href="javascript:jgdoc.NavPanel.dummy()">Files</a>
+                </h2>
+                <ul class="navContent2">
+                    <li>
+                                                                                <div>
+                                <a href="physical/file-examples/terminal/terminal.js.html">examples/terminal/terminal.js</a>
+                            </div>                              
+                                                                                                            <div>
+                                <a href="physical/file-realistic-typewriter.js.html">realistic-typewriter.js</a>
+                            </div>                              
+                                                                        </li>
+                </ul>
+            </div>
+        </li>       
+    </ul>
+    <ul class="navContent closed">
+        <li>
+            <div class="moduleTree">
+                <h2 onclick="jgdoc.NavPanel.clicked(event)">
+                    <a href="javascript:jgdoc.NavPanel.dummy()">Modules</a>
+                </h2>
+                <ul class="navContent2">
+                    <li>
+                                            </li>
+                </ul>
+            </div>
+        </li>       
+    </ul>
+</div>  
+    
+		</div>	
+	</body>
+    <script type="text/javascript">
+        jgdoc.Searcher.start();
+        jgdoc.NavTree.initialize("CharacterGenerator");
+    </script>			
+	<script type="text/javascript" src="jsindex.js">
+    </script>
+</html>
