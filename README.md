@@ -2,7 +2,17 @@
 
 A pure Javascript library for simulating typewriter effect.
 
-# Usage
+## Browser Compatibility
+
+The following browsers are tested and supported:
+
+|Chrome|Firefox|  IE  |Opera|Safari|
+|------|-------|------|-----|------|
+|  1+  |  3.6+ | 5.5+ | 10+ |  4+  |
+
+but it might work on others as well.
+
+## Usage
 
 Create an instance of RealisticTypewriter and optionally set it's options:
 
@@ -27,19 +37,19 @@ call type method of the object instance and pass in the required parameters:
 
 Take a look at the [documentation](http://fardjad.github.com/realistic-typewriter.js/docs/) and examples for more information.
 
-# Documentation
+## Documentation
 
 The documentation is generated with [jGrouseDoc](http://code.google.com/p/jgrousedoc/). It's available [here](http://fardjad.github.com/realistic-typewriter.js/docs/).
 
-# Examples
+## Examples
 
 [Terminal](http://fardjad.github.com/realistic-typewriter.js/examples/terminal/terminal.html)
 
-# Contributing
+## Contributing
 
 You are welcome to contribute via pull requests; just fork the repository, make your changes and submit a pull request.
 
-# License
+## License
 
 Copyright (c) 2013 Fardjad Davari
 
@@ -60,4 +70,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/ee03f2d8dd49590715d35dc0fd916fc3 "githalytics.com")](http://githalytics.com/fardjad/realistic-typewriter.js)

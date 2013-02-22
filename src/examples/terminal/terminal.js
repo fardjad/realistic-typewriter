@@ -17,15 +17,15 @@ function start() {
     // OK, I know the code could look better, but this is just a quick example
     setTimeout(function () {
         realisticTypewriter.type("ls realistic-typewriter.js", typeWriterElement, function () {
-            prompt(typeWriterElement, "\n");
+            prompt(typeWriterElement, "<br/>");
             setTimeout(function () {
-                prompt(typeWriterElement, "ls: realistic-typewriter.js: No such file or directory\n");
+                prompt(typeWriterElement, "ls: realistic-typewriter.js: No such file or directory<br/>");
                 prompt(typeWriterElement, "$ ");
                 realisticTypewriter.type("exit", typeWriterElement, function () {
-                    prompt(typeWriterElement, "\n");
+                    prompt(typeWriterElement, "<br/>");
                     setTimeout(function () {
-                        prompt(typeWriterElement, "logout\n\n");
-                        prompt(typeWriterElement, "[Process completed]\n");
+                        prompt(typeWriterElement, "logout<br/><br/>");
+                        prompt(typeWriterElement, "[Process completed]<br/>");
                     }, 500);
                 });
             }, 1000);

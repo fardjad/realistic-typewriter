@@ -1,3 +1,5 @@
+/*global document*/
+
 /**
  * @project realistic-typewriter.js
  * @timestamp
@@ -200,10 +202,10 @@ function RealisticTypewriter() {
                     correcting = typoIndex !== -1 && i % checkInterval === 0;
 
                     if (randomInRange(0, 100) > accuracy) {
-                        var output = getAdjacentCharacter(text[i], keyboardLayout);
+                        var output = getAdjacentCharacter(text.charAt(i), keyboardLayout);
 
                         if (output === null) {
-                            return text[i];
+                            return text.charAt(i);
                         }
 
                         if (typoIndex === -1) {
@@ -214,7 +216,7 @@ function RealisticTypewriter() {
                         return output;
                     }
 
-                    return text[i];
+                    return text.charAt(i);
                 }
 
                 if (i >= typoIndex) {
@@ -224,7 +226,7 @@ function RealisticTypewriter() {
 
                 correcting = false;
                 typoIndex = -1;
-                return text[++i];
+                return text.charAt(++i);
             }
         };
     }
@@ -272,7 +274,12 @@ function RealisticTypewriter() {
                     htmlElement.removeChild(htmlElement.lastChild);
                 } else {
                     var span = document.createElement("span");
-                    span.innerHTML = ch;
+                    if (ch === " ") {
+                        // IE workaround!
+                        span.innerHTML = "&nbsp;";
+                    } else {
+                        span.innerHTML = ch;
+                    }
                     htmlElement.appendChild(span);
                 }
                 internalCallback(false);
@@ -283,7 +290,7 @@ function RealisticTypewriter() {
             (function iterate() {
                 writeAndCallback(function (finished) {
                     if (finished) {
-                        if (callback !== undefined && typeof (callback) === "function") {
+                        if (callback !== undefined && typeof callback === "function") {
                             callback();
                         }
                         return;
