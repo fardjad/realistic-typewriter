@@ -15,7 +15,7 @@ if (typeof Object.create !== "function") {
         if (properties !== undefined) {
             for (property in properties) {
                 if (properties.hasOwnProperty(property)) {
-                    O.prototype[property] = properties[property].value;
+                    O[property] = properties[property].value;
                 }
             }
         }
