@@ -1,53 +1,57 @@
 # realistic-typewriter.js
 
-A pure Javascript library for simulating typewriter effect.
+A library for simulating typewriter effect in the browser.
 
-## Browser Compatibility
+v0.2 is a work-in-progress. Current working release is
+[v0.1](https://github.com/fardjad/realistic-typewriter.js/tree/v0.1).
+
+## Browser compatibility
 
 The following browsers are tested and supported:
 
-|Chrome|Firefox|  IE  |Opera|Safari|
-|------|-------|------|-----|------|
-|  1+  |  3.6+ | 5.5+ | 10+ |  4+  |
+|Chrome|Firefox|IE |Opera|Safari|
+|------|-------|---|-----|------|
+|TBD   |TBD    |TDB|TDB  |TDB   |
 
 but it might work on others as well.
 
 ## Usage
 
-Create an instance of RealisticTypewriter and optionally set it's options:
+    var tw = typewriter(targetDomElement).withAccuracy(90)
+                                         .withMinimumSpeed(5)
+                                         .withMaximumSpeed(10);
 
-    var realisticTypewriter = new RealisticTypewriter();
-    
-    // 10% typo rate
-    realisticTypewriter.accuracy = 90; 
-    
-    // typing speed will be from 5 to 10 characters per second.
-    realisticTypewriter.minimumCharactersPerSecond = 5;
-    realisticTypewriter.maximumCharactersPerSecond = 10;
-    
-    // waits at least 0.5 second and at most 1 second before it starts typing
-    realisticTypewriter.minimumInitialDelay = 500;
-    realisticTypewriter.maximumInitialDelay = 1000;
-
-call type method of the object instance and pass in the required parameters:
-
-    realisticTypewriter.type("Text to type", htmlElement, function () {
-        alert("finished");
-    });
-
-Take a look at the [documentation](http://fardjad.github.com/realistic-typewriter.js/docs/) and examples for more information.
-
-## Documentation
-
-The documentation is generated with [jGrouseDoc](http://code.google.com/p/jgrousedoc/). It's available [here](http://fardjad.github.com/realistic-typewriter.js/docs/).
+    typewriter.clear()
+              .waitRange(500, 1000)
+              .put('$ ')
+              .type('whoami')
+              .put('<br/>')
+              .wait(2000)
+              .put('realistic-typewriter.js')
+              .then(function () {
+                alert('done');
+              });
 
 ## Examples
 
-[Terminal](http://fardjad.github.com/realistic-typewriter.js/examples/terminal/terminal.html)
+TBD
+
+## Building from source-code
+
+### Requirements
+
+1. Node.js
+2. CoffeeScript (must be installed  globally)
+3. browserify (must be installed  globally)
+
+### Cake tasks
+
+Run `cake` to see available tasks.
 
 ## Contributing
 
-You are welcome to contribute via pull requests; just fork the repository, make your changes and submit a pull request.
+You are welcome to contribute via pull requests; fork the repository,
+make your changes and submit a pull request.
 
 ## License
 
