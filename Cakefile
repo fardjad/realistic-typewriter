@@ -3,12 +3,22 @@ path = require 'path'
 child_process = require 'child_process'
 assert = require 'assert'
 
-# constants
+Browserify = require 'browserify'
+UglifyJS = require 'uglify-js'
+
+# coffee
+COFFEE_PATH = 'node_modules/coffee-script/bin/coffee'
 SRC_DIR = path.join __dirname, 'src'
 BUILD_DIR = path.join __dirname, 'build'
+
+# browserify
 ENTRYPOINT = path.join BUILD_DIR, 'typewriter.js'
-BUNDLE = path.join BUILD_DIR, 'bundle.js'
-BUNDLE_STANDALONE = path.join BUILD_DIR, 'bundle-standalone.js'
+BUNDLE = path.join BUILD_DIR, 'typewriter-bundle.js'
+BUNDLE_STANDALONE = path.join BUILD_DIR, 'typewriter-bundle-sa.js'
+
+# uglify
+BUNDLE_MIN = path.join BUILD_DIR, 'typewriter-bundle.min.js'
+BUNDLE_STANDALONE_MIN = path.join BUILD_DIR, 'typewriter-bundle-sa.min.js'
 
 walkSync = (dir, fileAction, dirAction) ->
   items = fs.readdirSync dir
@@ -26,20 +36,26 @@ clean = (cb) ->
   cb?()
 
 compile = (cb) ->
-  p = child_process.spawn 'coffee',
-                          ['-c', '-o', BUILD_DIR, SRC_DIR], { stdio: 'inherit' }
+  p = child_process.spawn COFFEE_PATH,
+      ['-c', '-o', BUILD_DIR, SRC_DIR], { stdio: 'inherit' }
 
   p.on 'close', (code) ->
     cb? code
 
 browserify = (standalone, cb) ->
+  # compile if ENTRYPOINT doesn't exist
+  if !fs.existsSync(ENTRYPOINT)
+    compile browserify.bind null, standalone, cb
+    return;
+
+  # standalone arg is optional
   if !cb?
     cb = standalone
-    standalone = undefined
+    standalone = false
 
-  b = require('browserify')()
+  b = Browserify()
 
-  if (standalone?)
+  if (standalone)
     b.add ENTRYPOINT
     rstream = b.bundle { standalone: 'typewriter-standalone' }
     wstream = fs.createWriteStream BUNDLE_STANDALONE
@@ -51,16 +67,26 @@ browserify = (standalone, cb) ->
   rstream.pipe wstream
   wstream.on 'finish', cb
 
-build = (standalone, cb) ->
+browserifyMin = (standalone, cb) ->
+  # standalone arg is optional
   if !cb?
     cb = standalone
-    standalone = undefined
+    standalone = false
 
-  compile () ->
-    browserify standalone, cb
+  bundleName = (if standalone then BUNDLE_STANDALONE else BUNDLE)
+
+  # browserify if neither BUNDLE_STANDALONE nor BUNDLE exist
+  if !fs.existsSync bundleName
+    browserify standalone, browserifyMin.bind null, standalone, cb
+    return;
+
+  result = UglifyJS.minify bundleName
+
+  minBundleName = (if standalone then BUNDLE_STANDALONE_MIN else BUNDLE_MIN)
+  fs.writeFile minBundleName, result.code, cb
 
 task 'clean', \
-     'Recursively Removes all files and directories in build directory', () ->
+    'Recursively Removes all files and directories in build directory', () ->
   clean () ->
     console.log 'Done.'
 
@@ -72,22 +98,26 @@ task 'browserify', 'Makes a Browserify bundle', () ->
   browserify () ->
     console.log 'Done.'
 
-task 'build', 'compile + browserify', () ->
-  build () ->
+task 'browserify-sa', 'Makes a standalone Browserify bundle', () ->
+  browserify true, () ->
     console.log 'Done.'
 
-task 'standalone', 'Compiles CoffeeScript source files and makes a standalone' +
-' Browserify bundle', () ->
-  build true, () ->
+task 'browserify-min', 'Makes a minified Browserify bundle', () ->
+  browserifyMin () ->
     console.log 'Done.'
 
-task 'rebuild', 'clean + build', () ->
-  clean () ->
-    build () ->
-      console.log 'Done.'
+task 'browserify-sa-min', 'Makes a minified standalone Browserify' +
+    'bundle', () ->
+  browserifyMin true, () ->
+    console.log 'Done.'
 
-task 'minify', 'Minifies created bundle(s)', () ->
-  throw new Error("Not Implemented");
+task 'all', 'Compiles CoffeeScript source files and makes all targets', () ->
+  compile () ->
+    browserify () ->
+      browserify true, () ->
+        browserifyMin () ->
+          browserifyMin true, () ->
+            console.log 'Done.'
 
 task 'doc', 'Generates documentation', () ->
   throw new Error("Not Implemented");

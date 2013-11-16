@@ -40,13 +40,16 @@ TBD
 
 ### Requirements
 
-1. Node.js
-2. CoffeeScript (must be installed  globally)
-3. browserify (must be installed  globally)
+Node.js v0.10+
+
+### Instructions
+
+1. Clone the repository
+2. run `npm install`
 
 ### Cake tasks
 
-Run `cake` to see available tasks.
+Install CoffeeScript globally and run `cake` to see available tasks.
 
 ## Contributing
 
