@@ -27,7 +27,9 @@
     "browserify": "~2.35.2",
     "uglify-js": "~2.4.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "~1.14.0"
+  },
   "bundledDependencies": [],
   "license": "MIT",
   "engines": {

@@ -20,6 +20,9 @@ BUNDLE_STANDALONE = path.join BUILD_DIR, 'typewriter-bundle-sa.js'
 BUNDLE_MIN = path.join BUILD_DIR, 'typewriter-bundle.min.js'
 BUNDLE_STANDALONE_MIN = path.join BUILD_DIR, 'typewriter-bundle-sa.min.js'
 
+# mocha
+MOCHA_PATH = 'node_modules/mocha/bin/mocha'
+
 walkSync = (dir, fileAction, dirAction) ->
   items = fs.readdirSync dir
   items.forEach (item) ->
@@ -85,6 +88,14 @@ browserifyMin = (standalone, cb) ->
   minBundleName = (if standalone then BUNDLE_STANDALONE_MIN else BUNDLE_MIN)
   fs.writeFile minBundleName, result.code, cb
 
+test = (cb) ->
+  p = child_process.spawn MOCHA_PATH,
+      ['--compilers', 'coffee:coffee-script', '-R', 'spec'],
+      { stdio: 'inherit' }
+
+  p.on 'close', (code) ->
+    cb? code
+
 task 'clean', \
     'Recursively Removes all files and directories in build directory', () ->
   clean () ->
@@ -119,8 +130,8 @@ task 'all', 'Compiles CoffeeScript source files and makes all targets', () ->
           browserifyMin true, () ->
             console.log 'Done.'
 
-task 'doc', 'Generates documentation', () ->
-  throw new Error("Not Implemented");
-
 task 'test', 'Runs tests', () ->
+  test()
+
+task 'doc', 'Generates documentation', () ->
   throw new Error("Not Implemented");

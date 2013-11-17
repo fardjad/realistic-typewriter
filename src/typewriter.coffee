@@ -3,7 +3,7 @@ assert = require 'assert'
 class Typewriter
   setTargetDomElement: (targetDomElement) ->
     assert.strictEqual targetDomElement instanceof Element, true,
-        'targetDomElement must be an instance of Element'
+        'TargetDomElement must be an instance of Element'
 
     @targetDomElement = targetDomElement
 
@@ -39,6 +39,8 @@ class Typewriter
         'KeyboardLayout must be an Array'
 
     @keyboardLayout = keyboardLayout
+
+
 
 TypewriterBuilder = (targetDomElement) ->
   typewriter = new Typewriter()
