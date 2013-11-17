@@ -19,7 +19,8 @@ but it might work on others as well.
 
     var tw = typewriter(targetDomElement).withAccuracy(90)
                                          .withMinimumSpeed(5)
-                                         .withMaximumSpeed(10);
+                                         .withMaximumSpeed(10)
+                                         .build();
 
     typewriter.clear()
               .waitRange(500, 1000)
