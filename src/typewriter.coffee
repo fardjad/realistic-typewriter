@@ -1,8 +1,14 @@
 assert = require 'assert'
+sequence = require 'sequence'
+
+random = require './random'
 
 class Typewriter
+  constructor: () ->
+    @_sequence = sequence.create()
+
   setTargetDomElement: (targetDomElement) ->
-    assert.strictEqual targetDomElement instanceof Element, true,
+    assert.ok targetDomElement instanceof Element,
         'TargetDomElement must be an instance of Element'
 
     @targetDomElement = targetDomElement
@@ -10,7 +16,7 @@ class Typewriter
   setAccuracy: (accuracy) ->
     assert.strictEqual typeof accuracy, 'number',
         'Accuracy must be a number'
-    assert.strictEqual accuracy > 0 && accuracy <= 100, true,
+    assert.ok accuracy > 0 && accuracy <= 100,
         'Accuracy must be greater than 0 and less than or equal to 100'
 
     @accuracy = accuracy
@@ -18,16 +24,17 @@ class Typewriter
   setMinimumSpeed: (minimumSpeed) ->
     assert.strictEqual typeof minimumSpeed, 'number',
         'MinimumSpeed must be a number'
-    assert.strictEqual minimumSpeed > 0, true,
-        'MinimumSpeed must be greater than 0'
+    assert.ok minimumSpeed > 0, 'MinimumSpeed must be greater than 0'
 
-    @minimumSpeed = minimumSpeed
+    if @maximumSpeed? && minimumSpeed > @maximumSpeed
+      @minimumSpeed = @maximumSpeed
+    else
+      @minimumSpeed = minimumSpeed
 
   setMaximumSpeed: (maximumSpeed) ->
     assert.strictEqual typeof maximumSpeed, 'number',
         'MaximumSpeed must be a number'
-    assert.strictEqual maximumSpeed > 0, true,
-        'MaximumSpeed must be greater than 0'
+    assert.ok maximumSpeed > 0, 'MaximumSpeed must be greater than 0'
 
     if @minimumSpeed? && @minimumSpeed > maximumSpeed
       @maximumSpeed = minimumSpeed
@@ -35,44 +42,38 @@ class Typewriter
       @maximumSpeed = maximumSpeed
 
   setKeyboardLayout: (keyboardLayout) ->
-    assert.strictEqual keyboardLayout instanceof Array, true,
-        'KeyboardLayout must be an Array'
+    assert.ok keyboardLayout instanceof Array, 'KeyboardLayout must be an Array'
 
     @keyboardLayout = keyboardLayout
 
+  clear: () ->
+    @_sequence.then (next) =>
+      while (child = @targetDomElement.firstChild)?
+        @targetDomElement.removeChild child
+      next()
 
+    return @
 
-TypewriterBuilder = (targetDomElement) ->
-  typewriter = new Typewriter()
-  typewriter.setTargetDomElement targetDomElement
+  waitRange: (millisMin, millisMax) ->
+    @_sequence.then (next) =>
+      setTimeout next, random.integerInRange millisMin, millisMax
 
-  return {
-    withAccuracy: (@accuracy) ->
-      typewriter.setAccuracy @accuracy
-      return @
-    withMinimumSpeed: (@minimumSpeed) ->
-      typewriter.setMinimumSpeed @minimumSpeed
-      return @
-    withMaximumSpeed: (@maximumSpeed) ->
-      typewriter.setMaximumSpeed @maximumSpeed
-      return @
-    withKeyboardLayout: (@keyboardLayout) ->
-      typewriter.setKeyboardLayout @keyboardLayout
-      return @
-    build: () ->
-      assert.strictEqual @accuracy?, true, 'Accuracy must be set'
-      assert.strictEqual @minimumSpeed?, true, 'MinimumSpeed must be set'
-      assert.strictEqual @maximumSpeed?, true, 'MaximumSpeed must be set'
+    return @
 
-      if !@keyboardLayout?
-        typewriter.setKeyboardLayout [
-          ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='],
-          ['' , 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\'],
-          ['' , 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\''],
-          ['' , 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/']
-        ]
+  wait: (millis) ->
+    @waitRange millis, millis
 
-      return typewriter
-  }
+  put: (text) ->
+    @_sequence.then (next) =>
+      element = document.createElement 'div'
+      element.innerHTML = text
+      for child in element.childNodes
+        @targetDomElement.appendChild child
+      next()
 
-module.exports = TypewriterBuilder
+    return @
+
+  type: (text) ->
+    throw new Error 'Not Implemented!'
+
+module.exports = Typewriter

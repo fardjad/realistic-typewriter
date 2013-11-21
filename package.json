@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "test": "echo Not Implemented!",
-    "postinstall": "node_modules/coffee-script/bin/cake all"
+    "postinstall": "cake all"
   },
   "main": "./build/typewriter",
   "repository": {
@@ -25,7 +25,8 @@
   "dependencies": {
     "coffee-script": "~1.6.3",
     "browserify": "~2.35.2",
-    "uglify-js": "~2.4.3"
+    "uglify-js": "~2.4.3",
+    "sequence": "~2.2.1"
   },
   "devDependencies": {
     "mocha": "~1.14.0"

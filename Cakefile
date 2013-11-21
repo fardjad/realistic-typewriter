@@ -7,12 +7,12 @@ Browserify = require 'browserify'
 UglifyJS = require 'uglify-js'
 
 # coffee
-COFFEE_PATH = 'node_modules/coffee-script/bin/coffee'
+COFFEE_PATH = 'coffee'
 SRC_DIR = path.join __dirname, 'src'
 BUILD_DIR = path.join __dirname, 'build'
 
 # browserify
-ENTRYPOINT = path.join BUILD_DIR, 'typewriter.js'
+ENTRYPOINT = path.join BUILD_DIR, 'typewriterbuilder.js'
 BUNDLE = path.join BUILD_DIR, 'typewriter-bundle.js'
 BUNDLE_STANDALONE = path.join BUILD_DIR, 'typewriter-bundle-sa.js'
 
@@ -21,7 +21,7 @@ BUNDLE_MIN = path.join BUILD_DIR, 'typewriter-bundle.min.js'
 BUNDLE_STANDALONE_MIN = path.join BUILD_DIR, 'typewriter-bundle-sa.min.js'
 
 # mocha
-MOCHA_PATH = 'node_modules/mocha/bin/mocha'
+MOCHA_PATH = 'mocha'
 
 walkSync = (dir, fileAction, dirAction) ->
   items = fs.readdirSync dir
