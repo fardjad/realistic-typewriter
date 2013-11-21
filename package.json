@@ -10,10 +10,10 @@
     }
   ],
   "scripts": {
-    "test": "echo Not Implemented!",
+    "test": "cake test",
     "postinstall": "cake all"
   },
-  "main": "./build/typewriter",
+  "main": "./build/typewriterbuilder",
   "repository": {
     "type": "git",
     "url": "https://github.com/fardjad/realistic-typewriter.js"
