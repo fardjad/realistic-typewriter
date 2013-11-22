@@ -32,7 +32,7 @@ but it might work on others as well.
         console.log('yeah');
       })
       .wait(1000)
-      .put('<br/')
+      .put('<br/>')
       .type('exit', function () {
         console.log('finished');
       });

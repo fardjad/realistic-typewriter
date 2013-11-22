@@ -1,10 +1,12 @@
 assert = require 'assert'
 
+PrioritySequence = require './prioritysequence'
 random = require './random'
 
 class Typewriter
   constructor: () ->
-    @_sequence = sequence.create()
+    @_prioritySequence = new PrioritySequence () =>
+      @_sequenceLevel = 0
 
   setTargetDomElement: (targetDomElement) ->
     assert.ok targetDomElement instanceof Element,
@@ -45,19 +47,40 @@ class Typewriter
 
     @keyboardLayout = keyboardLayout
 
+  _makeChainable: (cb, fn) ->
+    shadow = Object.create @
+    shadow._sequenceLevel = @._sequenceLevel
+
+    @_prioritySequence.then @_sequenceLevel, (next) =>
+      fn () ->
+        cb?.call shadow
+        next()
+
+    @_sequenceLevel++ if cb?
+    return @ if !cb? or @hasOwnProperty '_prioritySequence'
+
   clear: (cb) ->
-    return @
+    return @_makeChainable cb, (done) =>
+      while (child = @targetDomElement.firstChild)?
+        @targetDomElement.removeChild child
+      done()
 
   waitRange: (millisMin, millisMax, cb) ->
-    return @
+    return @_makeChainable cb, (done) =>
+      setTimeout done, random.integerInRange millisMin, millisMax
 
   wait: (millis, cb) ->
     @waitRange millis, millis, cb
 
   put: (text, cb) ->
-    return @
+    return @_makeChainable cb, (done) =>
+      element = document.createElement 'div'
+      element.innerHTML = text
+      for child in element.childNodes
+        @targetDomElement.appendChild child
+      done()
 
-  type: (text) ->
+  type: (text, cb) ->
     throw new Error 'Not Implemented!'
 
 module.exports = Typewriter
