@@ -5,7 +5,7 @@ describe 'random#integerInRange', () ->
   it 'Should throw an exception when invalid arguments are specified', () ->
     assert.throws () ->
       random.integerInRange()
-    , /Min must be set/
+    , /The minimum must be specified/
 
     assert.throws () ->
       random.integerInRange '0'
@@ -17,7 +17,7 @@ describe 'random#integerInRange', () ->
 
     assert.throws () ->
       random.integerInRange 0
-    , /Max must be set/
+    , /The maximum must be specified/
 
     assert.throws () ->
       random.integerInRange 0, '1'

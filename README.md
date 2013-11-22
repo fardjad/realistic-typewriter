@@ -22,16 +22,20 @@ but it might work on others as well.
                                          .withMaximumSpeed(10)
                                          .build();
 
-    typewriter.clear()
-              .waitRange(500, 1000)
-              .put('$ ')
-              .type('whoami')
-              .put('<br/>')
-              .wait(2000)
-              .put('realistic-typewriter.js')
-              .then(function () {
-                alert('done');
-              });
+    tw.clear()
+      .waitRange(500, 1000)
+      .put('$ ')
+      .type('whoami')
+      .put('<br/>')
+      .wait(2000)
+      .put('realistic-typewriter.js', function () {
+        console.log('yeah');
+      })
+      .wait(1000)
+      .put('<br/')
+      .type('exit', function () {
+        console.log('finished');
+      });
 
 ## Examples
 

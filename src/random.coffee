@@ -1,11 +1,11 @@
 assert = require 'assert'
 
 integerInRange = (min, max) ->
-  assert.ok min?, 'Min must be set'
+  assert.ok min?, 'The minimum must be specified'
   assert.strictEqual typeof min, 'number', 'Min must be a Number'
   assert.strictEqual ~~min, min, 'Min must be an integer'
 
-  assert.ok max?, 'Max must be set'
+  assert.ok max?, 'The maximum must be specified'
   assert.strictEqual typeof max, 'number', 'Max must be a Number'
   assert.strictEqual ~~max, max, 'Max must be an integer'
 

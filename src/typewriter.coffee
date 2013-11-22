@@ -1,5 +1,4 @@
 assert = require 'assert'
-sequence = require 'sequence'
 
 random = require './random'
 
@@ -46,31 +45,16 @@ class Typewriter
 
     @keyboardLayout = keyboardLayout
 
-  clear: () ->
-    @_sequence.then (next) =>
-      while (child = @targetDomElement.firstChild)?
-        @targetDomElement.removeChild child
-      next()
-
+  clear: (cb) ->
     return @
 
-  waitRange: (millisMin, millisMax) ->
-    @_sequence.then (next) =>
-      setTimeout next, random.integerInRange millisMin, millisMax
-
+  waitRange: (millisMin, millisMax, cb) ->
     return @
 
-  wait: (millis) ->
-    @waitRange millis, millis
+  wait: (millis, cb) ->
+    @waitRange millis, millis, cb
 
-  put: (text) ->
-    @_sequence.then (next) =>
-      element = document.createElement 'div'
-      element.innerHTML = text
-      for child in element.childNodes
-        @targetDomElement.appendChild child
-      next()
-
+  put: (text, cb) ->
     return @
 
   type: (text) ->
