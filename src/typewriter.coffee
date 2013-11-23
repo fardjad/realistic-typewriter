@@ -43,7 +43,8 @@ class Typewriter
       @maximumSpeed = maximumSpeed
 
   setKeyboardLayout: (keyboardLayout) ->
-    assert.ok keyboardLayout instanceof Array, 'KeyboardLayout must be an Array'
+    assert.strictEqual typeof keyboardLayout.getAdjacentCharacter, 'function',
+        'KeyboardLayout must have an exported getAdjacentCharacter method'
 
     @keyboardLayout = keyboardLayout
 
@@ -51,7 +52,7 @@ class Typewriter
     shadow = Object.create @
     shadow._sequenceLevel = @._sequenceLevel
 
-    @_prioritySequence.then @_sequenceLevel, (next) =>
+    @_prioritySequence.then @_sequenceLevel, (next) ->
       fn () ->
         cb?.call shadow
         next()
