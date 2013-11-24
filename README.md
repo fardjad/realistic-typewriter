@@ -4,9 +4,9 @@
 
 A library for simulating typewriter effect in the browser.
 
-Current version is **0.2**.
+![Demo](https://github.com/fardjad/realistic-typewriter.js/raw/master/gfx/demo.gif)
 
-It is a complete rewrite of the previous version.
+Current version is **0.2**. It is a complete rewrite of the previous version.
 The Documentation is still incomplete (look at the examples for now.)
 
 **v0.1** is available
