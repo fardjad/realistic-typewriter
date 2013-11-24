@@ -23,6 +23,11 @@ BUNDLE_STANDALONE_MIN = path.join BUILD_DIR, 'typewriter-bundle-sa.min.js'
 # mocha
 MOCHA_PATH = 'mocha'
 
+# release
+ZIP = path.join BUILD_DIR, 'release.zip'
+README = path.join __dirname, 'README.md'
+EXAMPLES_DIR = path.join __dirname, 'examples'
+
 walkSync = (dir, fileAction, dirAction) ->
   items = fs.readdirSync dir
   items.forEach (item) ->
@@ -96,6 +101,45 @@ test = (cb) ->
   p.on 'close', (code) ->
     cb? code
 
+all = (cb) ->
+  compile () ->
+    browserify () ->
+      browserify true, () ->
+        browserifyMin () ->
+          browserifyMin true, () ->
+            cb?()
+
+zip = (cb) ->
+  output = fs.createWriteStream ZIP
+  output.on 'close', cb
+
+  archive = require('archiver')('zip')
+  archive.on 'error', (err) ->
+    throw err
+
+  archive.pipe output
+
+  toRelativePath = (p) ->
+    return p.substring __dirname.length + 1
+
+  addFile = (fileName) ->
+    archive.append fs.createReadStream(fileName),
+      name: toRelativePath fileName
+
+  addDirectory = (dirName) ->
+    walkSync dirName, addFile
+
+
+  addFile README
+  addFile BUNDLE
+  addFile BUNDLE_MIN
+  addFile BUNDLE_STANDALONE
+  addFile BUNDLE_STANDALONE_MIN
+  addDirectory EXAMPLES_DIR
+
+  archive.finalize (err, bytes) ->
+    throw err if err?
+
 task 'clean', \
     'Recursively Removes all files and directories in build directory', () ->
   clean () ->
@@ -123,12 +167,13 @@ task 'browserify-sa-min', 'Makes a minified standalone Browserify' +
     console.log 'Done.'
 
 task 'all', 'Compiles CoffeeScript source files and makes all targets', () ->
-  compile () ->
-    browserify () ->
-      browserify true, () ->
-        browserifyMin () ->
-          browserifyMin true, () ->
-            console.log 'Done.'
+  all () ->
+    console.log 'Done.'
+
+task 'release', 'Creates a release zip', () ->
+  all () ->
+    zip () ->
+      console.log 'Done.'
 
 task 'test', 'Runs tests', () ->
   test()

@@ -28,7 +28,8 @@
     "uglify-js": "~2.4.3"
   },
   "devDependencies": {
-    "mocha": "~1.14.0"
+    "mocha": "~1.14.0",
+    "archiver": "~0.4.10"
   },
   "bundledDependencies": [],
   "license": "MIT",
