@@ -2,6 +2,7 @@ assert = require 'assert'
 
 PrioritySequence = require './prioritysequence'
 random = require './random'
+charactergenerator = require './charactergenerator'
 
 class Typewriter
   constructor: () ->
@@ -53,16 +54,17 @@ class Typewriter
     shadow._sequenceLevel = @._sequenceLevel
 
     @_prioritySequence.then @_sequenceLevel, (next) ->
-      fn () ->
-        cb?.call shadow
-        next()
+      process.nextTick () ->
+        fn () ->
+          cb?.call shadow
+          next()
 
     @_sequenceLevel++ if cb?
     return @ if !cb? or @hasOwnProperty '_prioritySequence'
 
   clear: (cb) ->
     return @_makeChainable cb, (done) =>
-      while (child = @targetDomElement.firstChild)?
+      while (child = @targetDomElement.lastChild)?
         @targetDomElement.removeChild child
       done()
 
@@ -77,11 +79,27 @@ class Typewriter
     return @_makeChainable cb, (done) =>
       element = document.createElement 'div'
       element.innerHTML = text
-      for child in element.childNodes
+      while (child = element.firstChild)?
         @targetDomElement.appendChild child
       done()
 
+  delete: (cb) ->
+    return @_makeChainable cb, (done) =>
+      @targetDomElement.removeChild @targetDomElement.lastChild
+      done()
+
   type: (text, cb) ->
-    throw new Error 'Not Implemented!'
+    checkInterval = (@minimumSpeed + @maximumSpeed) / 2
+    gen = charactergenerator @keyboardLayout, @accuracy, checkInterval,
+        text
+
+    while (char = gen.next()) != null
+      if char != '\b'
+        @put char
+      else
+        @delete()
+      @waitRange ~~(1000 / @maximumSpeed), ~~(1000 / @minimumSpeed)
+
+    return @wait 0, cb
 
 module.exports = Typewriter

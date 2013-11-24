@@ -1,15 +1,13 @@
 assert = require 'assert'
 
-layout = require './../src/defaultkeyboardlayout'
-charactergenerator = require('./../src/charactergenerator').bind undefined, layout, 0, 5
-
-text = 'This is a text being typed with zero accuracy :D'
-
-cg = charactergenerator text
-
-typedText = ''
+layout = require __dirname + '/../src/defaultkeyboardlayout'
+charactergenerator = require __dirname + '/../src/charactergenerator'
+charactergenerator = charactergenerator.bind undefined, layout, 0, 5
 
 pad = '        '
+text = 'This is a text being typed with zero accuracy :D'
+cg = charactergenerator text
+typedText = ''
 
 type = (cb) ->
   c = cg.next()
@@ -27,7 +25,6 @@ type = (cb) ->
   setTimeout () ->
     type cb
   , 100
-
 
 describe 'charactergenerator', () ->
   it 'Should type the sample text', (done) ->

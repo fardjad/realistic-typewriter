@@ -1,19 +1,16 @@
 # realistic-typewriter.js
+[![Build Status](https://travis-ci.org/fardjad/realistic-typewriter.js.png?branch=master)](https://travis-ci.org/fardjad/realistic-typewriter.js)
+[![Dependency Status](https://gemnasium.com/fardjad/realistic-typewriter.js.png)](https://gemnasium.com/fardjad/realistic-typewriter.js)
 
 A library for simulating typewriter effect in the browser.
 
-v0.2 is a work-in-progress. Current working release is
-[v0.1](https://github.com/fardjad/realistic-typewriter.js/tree/v0.1).
+Current version is **0.2**.
 
-## Browser compatibility
+It is a complete rewrite of the previous version.
+The Documentation is still incomplete (look at the examples for now.)
 
-The following browsers are tested and supported:
-
-|Chrome|Firefox|IE |Opera|Safari|
-|------|-------|---|-----|------|
-|TBD   |TBD    |TDB|TDB  |TDB   |
-
-but it might work on others as well.
+**v0.1** is available
+[here](https://github.com/fardjad/realistic-typewriter.js/tree/v0.1).
 
 ## Usage
 
@@ -23,23 +20,40 @@ but it might work on others as well.
                                          .build();
 
     tw.clear()
-      .waitRange(500, 1000)
       .put('$ ')
+      .waitRange(1000, 2000)
       .type('whoami')
       .put('<br/>')
       .wait(2000)
       .put('realistic-typewriter.js', function () {
         console.log('yeah');
       })
-      .wait(1000)
       .put('<br/>')
+      .waitRange(500, 1000)
+      .put('$ ')
+      .waitRange(1000, 2000)
       .type('exit', function () {
         console.log('finished');
       });
 
-## Examples
+## Showcase
 
-TBD
+Did something interesting with **realistic-typewriter.js**?
+
+Feel free to add it here (or tweet [me](https://twitter.com/therealfardjad)).
+
+## Installation
+
+You can use this library with [browserify](http://browserify.org/) or download
+a pre-compiled version (see below) from the project's
+[releases page](https://github.com/fardjad/realistic-typewriter.js/releases).
+
+<blockquote>
+<strong>build/typewriter-bundle.js</strong> is the browserify bundle.<br/>
+<strong>build/typewriter-bundle.min.js</strong> is the minified version of the browserify bundle.<br/>
+<strong>build/typewriter-bundle-sa.js</strong> is the UMD browserify bundle.<br/>
+<strong>build/typewriter-bundle-sa.min.js</strong> is the minified version of the UMD browserify bundle.<br/>
+</blockquote>
 
 ## Building from source-code
 

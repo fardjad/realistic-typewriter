@@ -1,0 +1,51 @@
+<!doctype html>
+<meta charset="utf-8">
+
+<title>realistic-typewriter.js</title>
+
+<style>
+  body {
+    font-family: courier, fixed;
+    font-size: 13px;
+  }
+
+  .typewriter {
+    white-space: pre-wrap;
+    margin-right: -6px;
+  }
+
+  .caret {
+    background: #777;
+  }
+</style>
+
+<div id="wrapper">
+  <span id="typewriter" class="typewriter"></span>
+  <span class="caret">&nbsp;</span>
+</div>
+
+<script type="text/javascript" src="../build/typewriter-bundle.js"></script>
+
+<script type="text/javascript">
+  var typewriter = require('typewriter');
+
+  var twSpan = document.getElementById('typewriter');
+
+  var tw = typewriter(twSpan).withAccuracy(95)
+                             .withMinimumSpeed(5)
+                             .withMaximumSpeed(17)
+                             .build();
+  tw.put('$ ')
+    .waitRange(500, 1000)
+    .type('ls realistic-typewriter.js')
+    .put('<br/>')
+    .waitRange(1000, 1500)
+    .put('ls: realistic-typewriter.js: No such file or directory<br/>')
+    .put('$ ')
+    .waitRange(1000, 1500)
+    .type('exit')
+    .put('<br/>')
+    .wait(500)
+    .put('logout<br/><br/>')
+    .put('[Process completed]<br/>');
+</script>
