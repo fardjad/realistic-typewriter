@@ -61,13 +61,13 @@ browserify = (standalone, cb) ->
     cb = standalone
     standalone = false
 
-  b = Browserify()
-
   if (standalone)
+    b = Browserify { standalone: 'typewriter-standalone' }
     b.add ENTRYPOINT
-    rstream = b.bundle { standalone: 'typewriter-standalone' }
+    rstream = b.bundle()
     wstream = fs.createWriteStream BUNDLE_STANDALONE
   else
+    b = Browserify()
     b.require ENTRYPOINT, { expose: 'typewriter' }
     rstream = b.bundle()
     wstream = fs.createWriteStream BUNDLE
