@@ -1,6 +1,6 @@
 {
   "name": "typewriter",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Fardjad Davari <public@fardjad.com>",
   "description": "A library for simulating typewriter effect in the browser",
   "contributors": [
