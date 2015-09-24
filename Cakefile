@@ -6,8 +6,10 @@ assert = require 'assert'
 Browserify = require 'browserify'
 UglifyJS = require 'uglify-js'
 
+IS_WIN = /^win/.test process.platform
+
 # coffee
-COFFEE_PATH = 'coffee'
+COFFEE_PATH = if IS_WIN then 'coffee.cmd' else 'coffee'
 SRC_DIR = path.join __dirname, 'src'
 BUILD_DIR = path.join __dirname, 'build'
 
@@ -21,7 +23,7 @@ BUNDLE_MIN = path.join BUILD_DIR, 'typewriter-bundle.min.js'
 BUNDLE_STANDALONE_MIN = path.join BUILD_DIR, 'typewriter-bundle-sa.min.js'
 
 # mocha
-MOCHA_PATH = 'mocha'
+MOCHA_PATH = if IS_WIN then 'mocha.cmd' else 'mocha'
 
 # release
 ZIP = path.join BUILD_DIR, 'release.zip'
