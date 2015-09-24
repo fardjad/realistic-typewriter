@@ -14,21 +14,21 @@ The Documentation is still incomplete (look at the examples for now.)
 
 ## Usage
 
-    var tw = typewriter(targetDomElement).withAccuracy(90)
-                                         .withMinimumSpeed(5)
-                                         .withMaximumSpeed(10)
+    var tw = typewriter(targetDomElement).withAccuracy(90) // an integer between 0 and 100 (100 means no typos)
+                                         .withMinimumSpeed(5) // minimum characters per second
+                                         .withMaximumSpeed(10) // maximum characters per second
                                          .build();
 
-    tw.clear()
-      .put('$ ')
-      .waitRange(1000, 2000)
-      .type('whoami')
-      .put('<br/>')
-      .wait(2000)
+    tw.clear() // clear targetDomElement
+      .put('$ ') // instantly put '$ ' in targetDomElement
+      .waitRange(1000, 2000) // wait randomly between 1000ms and 2000ms
+      .type('whoami') // type 'whoami'
+      .put('<br/>') // yes, you can put html tags in targetDomElement
+      .wait(2000) // wait for 2000ms
       .put('realistic-typewriter.js', function () {
-        console.log('yeah');
+        console.log('yeah'); // 1
       })
-      .put('<br/>')
+      .put('<br/>') // will be executed after 1
       .waitRange(500, 1000)
       .put('$ ')
       .waitRange(1000, 2000)
