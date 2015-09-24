@@ -23,13 +23,13 @@
     "typewriter"
   ],
   "dependencies": {
-    "coffee-script": "~1.9.3",
-    "browserify": "~10.2.4",
-    "uglify-js": "^2.4.23"
+    "browserify": "^11.2.0",
+    "coffee-script": "^1.10.0",
+    "uglify-js": "^2.4.24"
   },
   "devDependencies": {
-    "mocha": "~2.2.5",
-    "archiver": "~0.14.4"
+    "archiver": "^0.15.1",
+    "mocha": "^2.3.3"
   },
   "bundledDependencies": [],
   "license": "MIT",
