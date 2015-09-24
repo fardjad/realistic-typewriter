@@ -15,8 +15,8 @@ The Documentation is still incomplete (look at the examples for now.)
 ## Usage
 
     var tw = typewriter(targetDomElement).withAccuracy(90) // an integer between 0 and 100 (100 means no typos)
-                                         .withMinimumSpeed(5) // minimum characters per second
-                                         .withMaximumSpeed(10) // maximum characters per second
+                                         .withMinimumSpeed(5) // minimum typing speed (characters per second)
+                                         .withMaximumSpeed(10) // maximum typing speed
                                          .build();
 
     tw.clear() // clear targetDomElement
@@ -35,12 +35,6 @@ The Documentation is still incomplete (look at the examples for now.)
       .type('exit', function () {
         console.log('finished');
       });
-
-## Showcase
-
-Did something interesting with **realistic-typewriter.js**?
-
-Feel free to add it here (or tweet [me](https://twitter.com/therealfardjad)).
 
 ## Installation
 
