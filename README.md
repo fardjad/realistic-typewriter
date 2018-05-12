@@ -1,5 +1,4 @@
 # realistic-typewriter.js
-[![Dependency Status](https://gemnasium.com/badges/github.com/fardjad/realistic-typewriter.js.svg)](https://gemnasium.com/github.com/fardjad/realistic-typewriter.js)
 [![Build Status](https://travis-ci.org/fardjad/realistic-typewriter.js.png?branch=master)](https://travis-ci.org/fardjad/realistic-typewriter.js)
 
 A library for simulating typewriter effect in the browser.
