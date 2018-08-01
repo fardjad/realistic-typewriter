@@ -97,7 +97,7 @@ browserifyMin = (standalone, cb) ->
 
 test = (cb) ->
   p = child_process.spawn MOCHA_PATH,
-      ['--compilers', 'coffee:coffeescript/register', '-R', 'spec'],
+      ['--require', 'coffeescript/register', '-R', 'spec', 'test/**/*.{js,coffee}'],
       { stdio: 'inherit' }
 
   p.on 'close', (code) ->

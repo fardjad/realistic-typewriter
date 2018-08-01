@@ -1,6 +1,6 @@
 {
   "name": "typewriter",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "author": "Fardjad Davari <public@fardjad.com>",
   "description": "A library for simulating typewriter effect in the browser",
   "contributors": [
@@ -22,14 +22,13 @@
     "realisitc-typewriter.js",
     "typewriter"
   ],
-  "dependencies": {
-    "browserify": "^14.4.0",
-    "coffeescript": "^1.12.7",
-    "uglify-js": "^3.0.27"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "archiver": "^2.0.0",
-    "mocha": "^3.5.0"
+    "archiver": "^2.1.1",
+    "mocha": "^5.2.0",
+    "browserify": "^16.2.2",
+    "coffeescript": "^2.3.1",
+    "uglify-js": "^3.4.6"
   },
   "bundledDependencies": [],
   "license": "MIT",
