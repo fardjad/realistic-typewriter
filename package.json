@@ -1,5 +1,5 @@
 {
-  "name": "typewriter",
+  "name": "realistic-typewriter",
   "version": "0.2.3",
   "author": "Fardjad Davari <public@fardjad.com>",
   "description": "A library for simulating typewriter effect in the browser",
@@ -33,6 +33,6 @@
   "bundledDependencies": [],
   "license": "MIT",
   "engines": {
-    "node": ">=0.10"
+    "node": ">=6.9.0"
   }
 }

@@ -52,7 +52,7 @@ a pre-compiled version (see below) from the project's
 
 ### Requirements
 
-Node.js v0.10+
+Node.js v6.9.0+
 
 ### Instructions
 
