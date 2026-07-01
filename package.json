@@ -24,8 +24,8 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "archiver": "^2.1.1",
-    "mocha": "^5.2.0",
+    "archiver": "^8.0.0",
+    "mocha": "^11.7.6",
     "browserify": "^16.2.2",
     "coffeescript": "^2.3.1",
     "uglify-js": "^3.4.6"
