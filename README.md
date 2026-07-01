@@ -1,72 +1,173 @@
-# realistic-typewriter.js
-[![Build Status](https://travis-ci.org/fardjad/realistic-typewriter.js.png?branch=master)](https://travis-ci.org/fardjad/realistic-typewriter.js)
+# realistic-typewriter
 
-A library for simulating typewriter effect in the browser.
+A small library for generating realistic typing event streams.
 
-![Demo](https://github.com/fardjad/realistic-typewriter.js/raw/master/gfx/demo.gif)
-
-Current version is **0.2**. It is a complete rewrite of the previous version.
-The Documentation is still incomplete (look at the examples for now.)
-
-**v0.1** is available
-[here](https://github.com/fardjad/realistic-typewriter.js/tree/v0.1).
-
-## Usage
-
-    var tw = typewriter(targetDomElement).withAccuracy(90) // an integer between 0 and 100 (100 means no typos)
-                                         .withMinimumSpeed(5) // minimum typing speed (characters per second)
-                                         .withMaximumSpeed(10) // maximum typing speed
-                                         .build();
-
-    tw.clear() // clear targetDomElement
-      .put('$ ') // instantly put '$ ' in targetDomElement
-      .waitRange(1000, 2000) // wait randomly between 1000ms and 2000ms
-      .type('whoami') // type 'whoami'
-      .put('<br/>') // yes, you can put html tags in targetDomElement
-      .wait(2000) // wait for 2000ms
-      .put('realistic-typewriter.js', function () {
-        console.log('yeah'); // 1
-      })
-      .put('<br/>') // will be executed after 1
-      .waitRange(500, 1000)
-      .put('$ ')
-      .waitRange(1000, 2000)
-      .type('exit', function () {
-        console.log('finished');
-      });
+`realistic-typewriter` simulates human typing by yielding a stream of operations
+you can render using the method of your choice, such as DOM text or terminal
+output.
 
 ## Installation
 
-You can use this library with [browserify](http://browserify.org/) or download
-a pre-compiled version (see below) from the project's
-[releases page](https://github.com/fardjad/realistic-typewriter.js/releases).
+```bash
+bun add realistic-typewriter
+```
 
-<blockquote>
-<strong>build/typewriter-bundle.js</strong> is the browserify bundle.<br/>
-<strong>build/typewriter-bundle.min.js</strong> is the minified version of the browserify bundle.<br/>
-<strong>build/typewriter-bundle-sa.js</strong> is the UMD browserify bundle.<br/>
-<strong>build/typewriter-bundle-sa.min.js</strong> is the minified version of the UMD browserify bundle.<br/>
-</blockquote>
+```bash
+npm install realistic-typewriter
+```
 
-## Building from source-code
+## API
 
-### Requirements
+```ts
+type KeyboardLayout = {
+  getAdjacentCharacter(character: string): string | null;
+};
 
-Node.js v6.9.0+
+type TypeOptions = {
+  accuracy?: number;
+  minSpeed?: number;
+  maxSpeed?: number;
+  layout?: KeyboardLayout;
+};
 
-### Instructions
+type TypeEvent =
+  | { kind: "wait"; ms: number }
+  | { kind: "insert"; value: string }
+  | { kind: "delete"; count: number };
 
-1. Clone the repository
-2. run `npm install`
+declare function type(text: string, options?: TypeOptions): AsyncIterable<TypeEvent>;
+```
 
-### Cake tasks
+### `TypeOptions`
 
-Install CoffeeScript globally and run `cake` to see available tasks.
+```ts
+type TypeOptions = {
+  accuracy?: number;
+  minSpeed?: number;
+  maxSpeed?: number;
+  layout?: KeyboardLayout;
+};
+```
 
-## Contributing
+- `accuracy`: typing accuracy from `0` to `100`, where higher values produce fewer typos
+- `minSpeed`: minimum typing speed in characters per second
+- `maxSpeed`: maximum typing speed in characters per second
+- `layout`: keyboard layout used to generate adjacent-key typos
 
-You are welcome to contribute via pull requests; fork the repository,
-make your changes and submit a pull request.
+## Events
+
+```ts
+type TypeEvent = WaitEvent | InsertEvent | DeleteEvent;
+
+type WaitEvent = {
+  kind: "wait";
+  ms: number;
+};
+
+type InsertEvent = {
+  kind: "insert";
+  value: string;
+};
+
+type DeleteEvent = {
+  kind: "delete";
+  count: number;
+};
+```
+
+### `WaitEvent`
+
+```ts
+type WaitEvent = {
+  kind: "wait";
+  ms: number;
+};
+```
+
+- emitted before the next visible typing action
+- `ms` is the suggested delay in milliseconds
+
+### `InsertEvent`
+
+```ts
+type InsertEvent = {
+  kind: "insert";
+  value: string;
+};
+```
+
+- appends visible text
+- `value` is the string to insert
+
+### `DeleteEvent`
+
+```ts
+type DeleteEvent = {
+  kind: "delete";
+  count: number;
+};
+```
+
+- removes previously rendered characters
+- `count` is the number of characters to remove, usually `1`
+
+## Usage
+
+```ts
+import { type } from "realistic-typewriter";
+
+let output = "";
+
+for await (const event of type("whoami", { accuracy: 95, minSpeed: 5, maxSpeed: 10 })) {
+  if (event.kind === "wait") {
+    await new Promise((resolve) => setTimeout(resolve, event.ms));
+    continue;
+  }
+
+  if (event.kind === "insert") {
+    output += event.value;
+    continue;
+  }
+
+  output = output.slice(0, -event.count);
+}
+```
+
+## Built-in Layouts
+
+`qwerty` is built in and used by default.
+
+```ts
+import { type } from "realistic-typewriter";
+import { qwerty } from "realistic-typewriter/layouts";
+
+for await (const event of type("hello", { layout: qwerty })) {
+  // render events however you like
+}
+```
+
+## Custom Layouts
+
+```ts
+import { createKeyboardLayout } from "realistic-typewriter";
+
+const layout = createKeyboardLayout([
+  ["1", "2", "3"],
+  ["Q", "W", "E"],
+  ["A", "S", "D"],
+]);
+```
+
+## Development
+
+The package ships dual ESM/CJS builds with Bun and uses Biome for linting and formatting.
+
+```bash
+bun install
+bun run typecheck
+bun run test
+bun run build
+```
 
 ## License
 

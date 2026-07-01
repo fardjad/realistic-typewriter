@@ -37,4 +37,5 @@ npm-debug.log
 node_modules
 
 ### Project Specific ###
-build
+dist/
+.codemogger
